@@ -5,7 +5,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
 
 @RunWith(Parameterized.class)
 public class LionParameterizedTest {
@@ -28,13 +27,8 @@ public class LionParameterizedTest {
 
     @Test
     public void isLionHaveMane() throws Exception {
-        Lion lion = new Lion(sex);
+        Lion lion = new Lion(sex, new Feline());
         assertEquals(lion.doesHaveMane(), hasMane);
     }
 
-    @Test
-    public void lionException () throws Exception{
-        Lion lion = new Lion("Самей");
-        assertThrows(Exception.class, () -> lion.doesHaveMane());
-    }
 }

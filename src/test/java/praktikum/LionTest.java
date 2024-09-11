@@ -8,6 +8,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -16,29 +17,33 @@ public class LionTest {
     Feline feline;
 
     @Test
-    public void testGetKittens() {
-        Lion lion = new Lion(feline);
+    public void testGetKittens() throws Exception {
+        Lion lion = new Lion("Самка", new Feline());
         when(feline.getKittens()).thenReturn(1);
         assertEquals(feline.getKittens(), lion.getKittens());
     }
 
     @Test
     public void testGetFood() throws Exception {
-        Lion lion = new Lion(feline);
+        Lion lion = new Lion("Самец", new Feline());
         List<String> food = List.of("Животные", "Птицы", "Рыба");
-        when(feline.getFood("Хищник")).thenReturn(food);
         assertEquals("Lion should eat: 'Животные, Птицы, Рыба'", food, lion.getFood());
     }
 
     @Test
-    public void testLionExeption() throws Exception {
-        Lion lion = new Lion(feline);
-        when(lion.getFood()).thenThrow(new Exception("Неизвестный вид животного, используйте значение Травоядное или Хищник"));
+    public void testLionException() throws Exception {
+        Lion lion = new Lion("Самец", new Feline());
         try {
             lion.getFood();
         } catch (Exception e) {
             assertEquals("Ожидаемая ошибка: 'Неизвестный вид животного, используйте значение Травоядное или Хищник'", "Неизвестный вид животного, используйте значение Травоядное или Хищник", e.getMessage());
         }
+    }
+
+    @Test
+    public void lionException () throws Exception{
+        Lion lion = new Lion("Самей", new Feline());
+        assertThrows(Exception.class, () -> lion.doesHaveMane());
     }
 
 }

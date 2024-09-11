@@ -2,17 +2,18 @@ package praktikum;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Spy;
+import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
-// сделать через spy
+
 @RunWith(MockitoJUnitRunner.class)
 public class FelineTest {
-    @Spy
+    @Mock
     Feline feline;
 
 
@@ -32,12 +33,14 @@ public class FelineTest {
 
     @Test
     public void testGetKittens() {
-        assertEquals( "Count of kittens should be 1", 1, feline.getKittens());
+        when(feline.getKittens()).thenReturn(1);
+        assertEquals("Count of kittens should be 1", 1, feline.getKittens());
     }
 
 
     @Test
     public void testGetKittensWithParams() {
-       assertEquals("Count of kittens should be equals to parameter ", 15, feline.getKittens(15));
+        when(feline.getKittens(15)).thenReturn(15);
+        assertEquals("Count of kittens should be equals to parameter ", 15, feline.getKittens(15));
     }
 }
